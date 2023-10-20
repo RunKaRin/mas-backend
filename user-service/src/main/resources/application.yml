@@ -1,0 +1,32 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: user-service
+  # MySQL 설정하기
+  datasource:
+    # 민감정보 숨기기
+    url: ${url}
+    username: ${username_}
+    password: ${password}
+    driver-class-name: ${driver-class-name}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+  profiles:
+    active: db
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true #유레카 서버에 등록하기
+    fetch-registry: true #유레카 서버에서 서버 사애 지속적 검사
+    service-url:
+      default-zone: localhost:8761/eureka # 유레카 서버의 주소
+

@@ -1,0 +1,11 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: discovery-server
+
+eureka:
+  client:
+    register-with-eureka: false #유레카 서버도 유레카에 등록할 것인가?
+    fetch-registry: false #등록된 마이크로서비스들과 실시간 동기식 통신을 할 것인가?

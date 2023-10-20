@@ -1,0 +1,59 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: apigateway-server
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            message: Global Filter Default Message Test
+            pre: true #or false
+            post: true #or false
+            # 호출 우선순위 : 글로벌 pre >> 커스텀 pre >> 커스텀 post > 글로벌 post
+
+      routes:  #개별 마이크로서비스 정보를 routes에 기입함
+        - id: first-service
+          uri: lb://FIRST-SERVICE #유레카등록어플리케이션이름으로 변경
+          predicates:
+            - Path=/first-service/**
+          filters:
+#            - AddRequestHeader=first-service_req_h, first-service_req_v
+#            - AddResponseHeader=first-service_res_h, first-service_res_v
+            - CustomFilter
+            - LogFilter
+
+        - id: second-service
+          uri: lb://SECOND-SERVICE #유레카등록어플리케이션이름으로 변경
+          predicates:
+            - Path=/second-service/**
+          filters:
+#            - AddRequestHeader=second-service_req_h, second-service_req_v
+#            - AddResponseHeader=second-service_res_h, second-service_res_v
+            - CustomFilter2
+
+        - id: user-service
+          uri: lb://USER-SERVICE #유레카등록어플리케이션이름으로 변경
+          predicates:
+            - Path=/user-service/**
+
+        - id: item-service
+          uri: lb://ITEM-SERVICE #유레카등록어플리케이션이름으로 변경
+          predicates:
+            - Path=/item-service/**
+
+        - id: order-service
+          uri: lb://ORDER-SERVICE #유레카등록어플리케이션이름으로 변경
+          predicates:
+            - Path=/order-service/**
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true #유레카 서버에 등록하기
+    fetch-registry: true #유레카 서버에서 서버 사애 지속적 검사
+    service-url:
+      default-zone: localhost:8761/eureka # 유레카 서버의 주소

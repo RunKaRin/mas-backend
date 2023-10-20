@@ -1,0 +1,12 @@
+server:
+  port: 8888
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://C:\Users\playdata\Desktop\Workspace\mas-backend\config-resource
+#          uri: https://github.com/RunKaRin/config_repository.git
+#          username: ENC(Nxjhc9KnvasOaKuX6eQkJdf9IzJHPpbg)
+#          password: ENC(Xnhd2NdjDg1FxCfMkhMZHMTvLuc9yxLX)
