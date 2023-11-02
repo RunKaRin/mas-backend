@@ -1,10 +1,15 @@
-package com.example.userservice.domain;
+package com.example.itemservice.domain;
 
 import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor @Builder @ToString
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
 public class Order {
 
     private Long id;

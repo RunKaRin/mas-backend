@@ -22,10 +22,10 @@ public class RequestCreateOrderDto {
     public Order toEntity() {
         return Order.builder()
                 .orderId(UUID.randomUUID().toString())
-                .count(this.count)
-                .createAt(LocalDateTime.now())
                 .userId(this.userId)
                 .productId(this.productId)
+                .count(this.count)
+                .createAt(LocalDateTime.now())
                 .build();
     }
 }

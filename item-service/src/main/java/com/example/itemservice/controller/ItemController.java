@@ -2,6 +2,7 @@ package com.example.itemservice.controller;
 
 import com.example.itemservice.dto.RequestCreateItemDto;
 import com.example.itemservice.dto.ResponseFindItemDto;
+import com.example.itemservice.dto.ResponseOrderByItemDto;
 import com.example.itemservice.service.ItemService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,12 +31,12 @@ public class ItemController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    // productId(uuid) 기반으로 상품 찾기
-    @GetMapping("items/{productId}")
-    public ResponseEntity<?> findItemByProductId(@PathVariable String productId) {
-        ResponseFindItemDto item = itemService.findItemByProductId(productId);
-        return ResponseEntity.ok(item);
-    }
+//    // productId(uuid) 기반으로 상품 찾기
+//    @GetMapping("items/{productId}")
+//    public ResponseEntity<?> findItemByProductId(@PathVariable String productId) {
+//        ResponseFindItemDto item = itemService.findItemByProductId(productId);
+//        return ResponseEntity.ok(item);
+//    }
 
     @GetMapping("port-check")
     public String portCheck() {
@@ -48,5 +49,12 @@ public class ItemController {
     @GetMapping("profile-check")
     public String profileCheck() {
         return env.getProperty("pro.file");
+    }
+
+    // productId 기준 orderList 조회
+    @GetMapping("items/{productId}/orders")
+    public ResponseEntity<?> getOrderByProductId(@PathVariable String productId) {
+        ResponseOrderByItemDto itemDto = itemService.findOrderByItem(productId);
+        return ResponseEntity.ok(itemDto);
     }
 }

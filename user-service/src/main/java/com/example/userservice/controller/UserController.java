@@ -35,16 +35,23 @@ public class UserController {
         // 201 Created: 요청이 성공적으로 처리되어서 리소스가 만들어졌음.
     }
 
-    // uuid 기반으로 계정 찾기
+    // 전체 회원 조회
+    @GetMapping("users/all")
+    public ResponseEntity<?> findAllUser() {
+        return ResponseEntity.ok(userService.findAllUser());
+    }
+
+    // uuid 기준 user 조회
     @GetMapping("users/{uuid}")
     public ResponseEntity<?> findUserByUuid(@PathVariable String uuid) {
         ResponseFindUserDto user = userService.findUserByUuid(uuid);
         return ResponseEntity.ok(user);
     }
 
-    // 전체 회원 조회
-    @GetMapping("users/all")
-    public ResponseEntity<?> findAllUser() {
-        return ResponseEntity.ok(userService.findAllUser());
+    // userId 기준 orderList 조회
+    @GetMapping("users/{userId}/orders")
+    public ResponseEntity<?> findOrdersByUserId(@PathVariable String userId) {
+        ResponseFindUserDto userDto = userService.findUserOrderList(userId);
+        return ResponseEntity.ok(userDto);
     }
 }
