@@ -57,4 +57,11 @@ public class ItemController {
         ResponseOrderByItemDto itemDto = itemService.findOrderByItem(productId);
         return ResponseEntity.ok(itemDto);
     }
+
+    // RabbitMQ 메세지
+    @GetMapping("items/{message}/message")
+    public ResponseEntity<?> publishTestMessage(@PathVariable String message) {
+        itemService.publishTestMessage(message);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
 }

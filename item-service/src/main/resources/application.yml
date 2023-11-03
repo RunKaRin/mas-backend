@@ -21,6 +21,13 @@ spring:
   profiles:
     active: pro
 
+  # RabbitMQ 셋팅
+  rabbitmq:
+    host: localhost
+    username: guest
+    password: guest
+    port: 5672 #관리자번호(15672)x
+
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
