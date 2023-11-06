@@ -48,6 +48,11 @@ dependencies {
 	// 2023.11.03.금 추가
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-amqp
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
+	// 2023.11.06.월 추가
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 }
 
 dependencyManagement {

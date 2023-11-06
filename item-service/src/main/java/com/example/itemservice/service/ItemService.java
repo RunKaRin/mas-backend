@@ -9,6 +9,9 @@ import com.example.itemservice.exception.ItemNotFoundException;
 import com.example.itemservice.feignclient.OrderFeignClient;
 import com.example.itemservice.repository.ItemRepository;
 import com.example.itemservice.util.Producer;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -25,6 +28,8 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final OrderFeignClient orderFeignClient;
     private final Producer producer;
+
+    private final ObjectMapper objectMapper;
 
     // 상품등록
     public void createItem(RequestCreateItemDto requestCreateItemDto) {
@@ -61,4 +66,10 @@ public class ItemService {
         producer.sendTestMessage(message);
     }
 
+    public void publishCreateMessage(RequestCreateItemDto requestCreateItemDto) throws JsonProcessingException {
+
+        // dto를 json(string) 으로 직렬화
+        String message = objectMapper.writeValueAsString(requestCreateItemDto);
+        producer.sendCreateMessage(message);
+    }
 }

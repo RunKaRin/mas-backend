@@ -15,4 +15,9 @@ public class Producer {
         rabbitTemplate.convertAndSend("ITEM_CREATE_QUEUE", message);
     }
 
+    // 어차피 java object를 String으로 바꿔야 하기 때문에 크게 달라질 것은 없음
+    public void sendCreateMessage(String message) {
+        rabbitTemplate.convertAndSend("ITEM_CREATE_QUEUE", message);
+    }
+
 }

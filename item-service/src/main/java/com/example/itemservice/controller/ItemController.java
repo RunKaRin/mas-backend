@@ -4,6 +4,8 @@ import com.example.itemservice.dto.RequestCreateItemDto;
 import com.example.itemservice.dto.ResponseFindItemDto;
 import com.example.itemservice.dto.ResponseOrderByItemDto;
 import com.example.itemservice.service.ItemService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
@@ -19,6 +21,9 @@ public class ItemController {
     private final ItemService itemService;
     private final Environment env;
 
+    // 직렬화, 역직렬화 담당 라이브러리.
+    private final ObjectMapper objectMapper;
+
     @RequestMapping("health-check")
     public String healthCheck() {
         return "item-service server is available!";
@@ -26,9 +31,14 @@ public class ItemController {
 
     // 상품등록
     @PostMapping("items")
-    public ResponseEntity<?> createItem(@Valid @RequestBody RequestCreateItemDto requestCreateItemDto) {
-        itemService.createItem(requestCreateItemDto);
-        return new ResponseEntity(HttpStatus.CREATED);
+    public ResponseEntity<?> createItem(@Valid @RequestBody RequestCreateItemDto requestCreateItemDto)
+            throws JsonProcessingException {
+//        itemService.createItem(requestCreateItemDto);
+//        return new ResponseEntity(HttpStatus.CREATED);
+
+        // 메시지 큐로 전달만 하면 됨.
+        itemService.publishCreateMessage(requestCreateItemDto);
+        return ResponseEntity.ok("메시지큐에 생성 요청 적재 완료.");
     }
 
 //    // productId(uuid) 기반으로 상품 찾기
