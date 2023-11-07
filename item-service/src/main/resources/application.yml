@@ -28,6 +28,10 @@ spring:
     password: guest
     port: 5672 #관리자번호(15672)x
 
+  # 카프카 셋팅
+  kafka:
+    bootstrap-servers: localhost:9092
+
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

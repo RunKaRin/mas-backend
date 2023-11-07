@@ -53,6 +53,10 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+	// 2023.11.07.화 추가
+	// kafka 버전 맞춰서 의존성 설정
+	implementation ('org.springframework.kafka:spring-kafka:2.8.1')
+
 }
 
 dependencyManagement {
